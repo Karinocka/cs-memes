@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CS 1.6 — Легенды сервера</title>
     <style>
-        /* ============================
-           ГЛОБАЛЬНЫЕ СТИЛИ
-        ============================ */
         * {
             margin: 0;
             padding: 0;
@@ -44,9 +41,6 @@
             text-decoration: none;
         }
 
-        /* ============================
-           МАТРИЦА (ФОН)
-        ============================ */
         #matrix-bg {
             position: fixed;
             top: 0;
@@ -65,9 +59,6 @@
             height: 100%;
         }
 
-        /* ============================
-           ШАПКА / МЕНЮ
-        ============================ */
         header {
             position: relative;
             z-index: 10;
@@ -132,9 +123,6 @@
             background: rgba(0, 255, 200, 0.03);
         }
 
-        /* ============================
-           СТРАНИЦЫ (ВКЛАДКИ)
-        ============================ */
         .page {
             display: none;
             position: relative;
@@ -176,9 +164,6 @@
             letter-spacing: 1px;
         }
 
-        /* ============================
-           ИГРОКИ (ГРИД)
-        ============================ */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -231,9 +216,6 @@
             border: 1px solid rgba(255, 200, 0, 0.06);
         }
 
-        /* ============================
-           СЕРВЕРА
-        ============================ */
         .servers-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -289,9 +271,6 @@
             100% { opacity: 1; }
         }
 
-        /* ============================
-           МОДАЛКА (ИГРОК)
-        ============================ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -422,9 +401,6 @@
             font-size: 11px;
         }
 
-        /* ============================
-           МОДАЛКА (СЕРВЕР)
-        ============================ */
         .server-modal .server-info {
             text-align: center;
             padding: 10px 0;
@@ -482,9 +458,6 @@
             color: #5a6a7a;
         }
 
-        /* ============================
-           ФУТЕР
-        ============================ */
         footer {
             position: relative;
             z-index: 5;
@@ -502,9 +475,6 @@
             color: #00ffc8;
         }
 
-        /* ============================
-           АДАПТИВ
-        ============================ */
         @media (max-width: 700px) {
             .header-inner {
                 flex-direction: column;
@@ -545,16 +515,10 @@
 </head>
 <body>
 
-    <!-- ============================
-    МАТРИЦА (ФОН)
-    ============================ -->
     <div id="matrix-bg">
         <canvas id="matrixCanvas"></canvas>
     </div>
 
-    <!-- ============================
-    ШАПКА
-    ============================ -->
     <header>
         <div class="container header-inner">
             <div class="logo">
@@ -568,9 +532,6 @@
         </div>
     </header>
 
-    <!-- ============================
-    СТРАНИЦА: ИГРОКИ
-    ============================ -->
     <div id="page-players" class="page active">
         <div class="container">
             <div class="page-title">👥 <span>Игроки</span> сервера</div>
@@ -579,9 +540,6 @@
         </div>
     </div>
 
-    <!-- ============================
-    СТРАНИЦА: СЕРВЕРА
-    ============================ -->
     <div id="page-servers" class="page">
         <div class="container">
             <div class="page-title">🎮 <span>Сервера</span> CS 1.6</div>
@@ -590,9 +548,6 @@
         </div>
     </div>
 
-    <!-- ============================
-    МОДАЛКА (ИГРОК)
-    ============================ -->
     <div class="modal-overlay" id="playerModal">
         <div class="modal">
             <button class="close" id="playerModalClose">✕</button>
@@ -609,9 +564,6 @@
         </div>
     </div>
 
-    <!-- ============================
-    МОДАЛКА (СЕРВЕР)
-    ============================ -->
     <div class="modal-overlay server-modal" id="serverModal">
         <div class="modal">
             <button class="close" id="serverModalClose">✕</button>
@@ -620,19 +572,12 @@
                 <div style="font-size:32px; font-weight:700; color:#ffcc00;" id="smNum">#1</div>
                 <div class="big-ip" id="smIp">83.69.139.164:27014</div>
                 <div style="font-size:13px; color:#5a6a7a; margin-bottom:4px;">Карты:</div>
-                <div class="server-maps" id="smMaps">
-                    <span>de_dust2</span>
-                    <span>de_inferno</span>
-                    <span>de_nuke</span>
-                </div>
+                <div class="server-maps" id="smMaps"></div>
                 <button class="copy-btn" id="smCopyBtn">📋 Копировать IP</button>
             </div>
         </div>
     </div>
 
-    <!-- ============================
-    ФУТЕР
-    ============================ -->
     <footer>
         <div class="container">
             <p>⚡ CS 1.6 &bull; 2026 &bull; <a href="#">Присоединиться к кринжу</a></p>
@@ -678,33 +623,32 @@
         setInterval(drawMatrix, 40);
 
         // ============================
-        // ДАННЫЕ ИГРОКОВ
+        // ИГРОКИ
         // ============================
         const players = [{
             id: 'papay',
-            avatar: '👑',
+            avatar: '👴',
             nick: 'PaPaY',
-            role: '👑 Самый Сильный игрок мира',
-            badge: '🏆 MVP Мира',
+            role: '👑 Главный бот',
+            badge: '🏆 MVP кринжа',
             moments: [
-                { img: 'papay_1.jpg', desc: 'Умничка' },
-                { img: 'papay_2.jpg', desc: 'Aylanamiza))' },
-                { emoji: '💸', desc: 'Деньги не проблема },
-                { emoji: '🔪', desc: 'убью' },
-                { emoji: '🔄', desc: 'проблема?' },
-                { emoji: '😭', desc: 'когда он умирал.Вся команда плакала' },
+                { img: 'papay_1.jpg', desc: 'Застрелил тиммейта вместо врага' },
+                { emoji: '💸', desc: 'Купил AWP, а денег нет' },
+                { emoji: '🔪', desc: 'Бежал с ножом на 5 врагов и умер' },
+                { emoji: '🔄', desc: 'Сделал 3 круга и не нашёл никого' },
+                { emoji: '😭', desc: 'Плакал в микрофон, когда убили' },
             ],
-            quote: '"Мой братик❤️"',
-            author: 'Karina'
+            quote: '"Я купил AWP, а денег нет."',
+            author: 'PaPaY'
         }, {
             id: 'drweb',
             avatar: '💊',
             nick: 'Dr.Web',
-            role: '🛡️ Ishlamaydigan Antivirus',
+            role: '🛡️ Антивирус, который не помогает',
             badge: '💀 Лечил врагов',
             moments: [
-                { emoji: '💉', desc: 'Кинул дым вместо лечебной гранаты' },
-                { emoji: '🔥', desc: 'Лечил врага гранатой' },
+                { img: 'drweb_1.jpg', desc: 'Кинул дым вместо лечебной гранаты' },
+                { img: 'drweb_2.jpg', desc: 'Лечил врага гранатой' },
                 { emoji: '🤡', desc: 'Кричал "Я ЛЕЧУ!" и подорвал себя' },
                 { emoji: '🎯', desc: 'Вылечил себя от пули — не помогло' },
                 { emoji: '😂', desc: 'Бегал с аптечкой и просил ранить' },
@@ -789,9 +733,6 @@
             author: 'SIT'
         }];
 
-        // ============================
-        // ОТРИСОВКА ИГРОКОВ
-        // ============================
         const playerGrid = document.getElementById('playerGrid');
 
         players.forEach(p => {
@@ -855,7 +796,7 @@
         });
 
         // ============================
-        // ДАННЫЕ СЕРВЕРОВ
+        // СЕРВЕРА
         // ============================
         const servers = [{
             id: 1,
@@ -883,9 +824,6 @@
             maps: ['de_piranesi', 'de_cpl_mill', 'de_cpl_strike']
         }];
 
-        // ============================
-        // ОТРИСОВКА СЕРВЕРОВ
-        // ============================
         const serversGrid = document.getElementById('serversGrid');
 
         servers.forEach(s => {
