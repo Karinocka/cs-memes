@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CS 1.6 — Легенды сервера</title>
     <style>
+        /* ============================
+           ГЛОБАЛЬНЫЕ СТИЛИ
+        ============================ */
         * {
             margin: 0;
             padding: 0;
@@ -16,23 +19,62 @@
             background: #0a0e17;
             color: #c0c0c0;
             min-height: 100vh;
-            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><text x="10" y="30" font-family="Courier New" font-size="12" fill="rgba(0,255,200,0.02)">CS</text><text x="40" y="70" font-family="Courier New" font-size="14" fill="rgba(0,255,200,0.02)">1.6</text><text x="70" y="40" font-family="Courier New" font-size="10" fill="rgba(0,255,200,0.02)">RUSH</text></svg>');
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0e17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00ffc8;
+            border-radius: 10px;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
+        a {
+            color: #00ffc8;
+            text-decoration: none;
+        }
+
+        /* ============================
+           МАТРИЦА (ФОН)
+        ============================ */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.08;
+            overflow: hidden;
+        }
+
+        #matrix-bg canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ============================
+           ШАПКА / МЕНЮ
+        ============================ */
         header {
+            position: relative;
+            z-index: 10;
             background: rgba(10, 14, 23, 0.92);
             backdrop-filter: blur(12px);
             border-bottom: 2px solid rgba(0, 255, 200, 0.06);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            padding: 16px 0;
         }
 
         .header-inner {
@@ -63,59 +105,91 @@
             margin-top: 2px;
         }
 
-        .subtitle {
-            color: #5a6a7a;
-            font-size: 14px;
-            letter-spacing: 1px;
-        }
-
-        .subtitle i {
-            color: #ff6b6b;
-            font-style: normal;
-        }
-
-        .stats {
+        nav {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            margin: 30px 0;
-            padding: 20px 24px;
-            background: rgba(0, 0, 0, 0.3);
+            gap: 6px;
+        }
+
+        nav a {
+            color: #7a8ba3;
+            font-size: 14px;
+            padding: 8px 16px;
             border: 1px solid rgba(0, 255, 200, 0.04);
-            border-radius: 8px;
-            justify-content: center;
+            border-radius: 6px;
+            transition: 0.25s;
+            cursor: pointer;
         }
 
-        .stats .item {
-            text-align: center;
+        nav a:hover {
+            color: #ffffff;
+            border-color: rgba(0, 255, 200, 0.15);
         }
 
-        .stats .item .num {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ffcc00;
+        nav a.active {
+            color: #00ffc8;
+            border-color: #00ffc8;
+            background: rgba(0, 255, 200, 0.03);
         }
 
-        .stats .item .label {
-            font-size: 10px;
-            color: #5a6a7a;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        /* ============================
+           СТРАНИЦЫ (ВКЛАДКИ)
+        ============================ */
+        .page {
+            display: none;
+            position: relative;
+            z-index: 5;
+            padding: 30px 0 60px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
             display: block;
         }
 
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .page-title span {
+            color: #00ffc8;
+        }
+
+        .page-sub {
+            color: #5a6a7a;
+            font-size: 14px;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        /* ============================
+           ИГРОКИ (ГРИД)
+        ============================ */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 20px;
-            padding: 20px 0 40px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
         }
 
         .card {
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(0, 255, 200, 0.04);
-            border-radius: 16px;
-            padding: 20px 14px;
+            border-radius: 12px;
+            padding: 16px 12px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
@@ -123,24 +197,23 @@
 
         .card:hover {
             border-color: rgba(0, 255, 200, 0.2);
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
 
         .card .avatar {
-            font-size: 48px;
-            margin-bottom: 6px;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 200, 0.05));
+            font-size: 40px;
+            margin-bottom: 4px;
         }
 
         .card .nick {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 17px;
+            font-weight: 600;
             color: #ffffff;
         }
 
         .card .role {
-            font-size: 12px;
+            font-size: 11px;
             color: #5a6a7a;
             margin-top: 2px;
             text-transform: uppercase;
@@ -149,15 +222,76 @@
 
         .card .badge {
             display: inline-block;
-            margin-top: 6px;
-            font-size: 10px;
-            padding: 2px 14px;
+            margin-top: 4px;
+            font-size: 9px;
+            padding: 2px 12px;
             border-radius: 20px;
             background: rgba(255, 200, 0, 0.06);
             color: #ffcc00;
             border: 1px solid rgba(255, 200, 0, 0.06);
         }
 
+        /* ============================
+           СЕРВЕРА
+        ============================ */
+        .servers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .server-card {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(0, 255, 200, 0.04);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .server-card:hover {
+            border-color: rgba(0, 255, 200, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .server-card .num {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffcc00;
+        }
+
+        .server-card .ip {
+            font-size: 16px;
+            color: #ffffff;
+            margin: 6px 0;
+            font-weight: 600;
+        }
+
+        .server-card .status {
+            font-size: 12px;
+            color: #5a6a7a;
+        }
+
+        .server-card .status .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ffc8;
+            margin-right: 6px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* ============================
+           МОДАЛКА (ИГРОК)
+        ============================ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -176,25 +310,14 @@
         .modal {
             background: #111927;
             border: 1px solid rgba(0, 255, 200, 0.08);
-            border-radius: 20px;
-            max-width: 580px;
+            border-radius: 16px;
+            max-width: 560px;
             width: 92%;
             max-height: 85vh;
             overflow-y: auto;
             padding: 28px 24px;
             position: relative;
             animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         .modal .close {
@@ -206,7 +329,6 @@
             cursor: pointer;
             background: none;
             border: none;
-            font-family: 'Courier New', monospace;
         }
 
         .modal .close:hover {
@@ -214,13 +336,12 @@
         }
 
         .modal .m-avatar {
-            font-size: 56px;
+            font-size: 48px;
             text-align: center;
-            margin-bottom: 2px;
         }
 
         .modal .m-nick {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: #ffffff;
             text-align: center;
@@ -230,91 +351,145 @@
             text-align: center;
             color: #00ffc8;
             font-size: 14px;
-            margin-bottom: 4px;
         }
 
         .modal .m-badge {
             text-align: center;
             color: #ffcc00;
             font-size: 13px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .modal .m-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #ffffff;
-            margin: 12px 0 8px;
+            margin: 10px 0 6px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-            padding-bottom: 6px;
+            padding-bottom: 4px;
         }
 
         .modal .moments {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
         }
 
         .modal .moments .moment {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(0, 255, 200, 0.04);
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 8px;
             text-align: center;
-            transition: 0.25s;
-        }
-
-        .modal .moments .moment:hover {
-            border-color: rgba(0, 255, 200, 0.1);
         }
 
         .modal .moments .moment img {
             width: 100%;
-            border-radius: 8px;
-            display: block;
-            margin-bottom: 4px;
-            object-fit: cover;
+            border-radius: 6px;
             aspect-ratio: 16/9;
+            object-fit: cover;
             background: #0a0e17;
         }
 
         .modal .moments .moment .desc {
-            font-size: 11px;
+            font-size: 10px;
             color: #7a8ba3;
-            line-height: 1.4;
             display: block;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .modal .moments .moment .emoji {
-            font-size: 32px;
+            font-size: 28px;
             display: block;
-            margin-bottom: 2px;
         }
 
         .modal .quote {
-            margin-top: 14px;
-            padding: 12px 16px;
+            margin-top: 12px;
+            padding: 10px 14px;
             background: rgba(0, 255, 200, 0.03);
-            border-left: 3px solid rgba(255, 200, 0, 0.2);
+            border-left: 3px solid rgba(255, 200, 0, 0.15);
             border-radius: 4px;
             font-style: italic;
             color: #aabbcc;
-            font-size: 15px;
-            line-height: 1.5;
+            font-size: 14px;
         }
 
         .modal .quote .author {
             display: block;
-            margin-top: 4px;
+            margin-top: 2px;
             font-style: normal;
             color: #5a6a7a;
-            font-size: 12px;
+            font-size: 11px;
         }
 
+        /* ============================
+           МОДАЛКА (СЕРВЕР)
+        ============================ */
+        .server-modal .server-info {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .server-modal .server-info .big-ip {
+            font-size: 26px;
+            font-weight: 700;
+            color: #00ffc8;
+            letter-spacing: 2px;
+            background: rgba(0, 255, 200, 0.03);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 200, 0.04);
+            margin: 10px 0;
+            word-break: break-all;
+        }
+
+        .server-modal .server-info .copy-btn {
+            padding: 10px 30px;
+            background: transparent;
+            border: 1px solid #00ffc8;
+            color: #00ffc8;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            transition: 0.25s;
+            margin-top: 6px;
+        }
+
+        .server-modal .server-info .copy-btn:hover {
+            background: rgba(0, 255, 200, 0.04);
+        }
+
+        .server-modal .server-info .copy-btn.copied {
+            border-color: #ffcc00;
+            color: #ffcc00;
+        }
+
+        .server-modal .server-maps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .server-modal .server-maps span {
+            background: rgba(0, 255, 200, 0.04);
+            border: 1px solid rgba(0, 255, 200, 0.04);
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #5a6a7a;
+        }
+
+        /* ============================
+           ФУТЕР
+        ============================ */
         footer {
+            position: relative;
+            z-index: 5;
             border-top: 1px solid rgba(255, 255, 255, 0.02);
-            padding: 20px 0;
+            padding: 16px 0;
             text-align: center;
             color: #3a4a5a;
             font-size: 12px;
@@ -322,38 +497,39 @@
 
         footer a {
             color: #5a6a7a;
-            text-decoration: none;
         }
-
         footer a:hover {
             color: #00ffc8;
         }
 
+        /* ============================
+           АДАПТИВ
+        ============================ */
         @media (max-width: 700px) {
             .header-inner {
                 flex-direction: column;
                 align-items: stretch;
                 text-align: center;
             }
+            nav {
+                justify-content: center;
+            }
+            nav a {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
             .grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
+            .servers-grid {
+                grid-template-columns: 1fr 1fr;
+            }
             .modal .moments {
                 grid-template-columns: 1fr;
             }
-            .card .avatar {
-                font-size: 36px;
-            }
-            .card .nick {
-                font-size: 16px;
-            }
-            .stats {
-                gap: 12px;
-                padding: 16px;
-            }
-            .stats .item .num {
-                font-size: 22px;
+            .server-modal .server-info .big-ip {
+                font-size: 18px;
             }
         }
 
@@ -361,64 +537,102 @@
             .grid {
                 grid-template-columns: 1fr;
             }
+            .servers-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- ============================
+    МАТРИЦА (ФОН)
+    ============================ -->
+    <div id="matrix-bg">
+        <canvas id="matrixCanvas"></canvas>
+    </div>
+
+    <!-- ============================
+    ШАПКА
+    ============================ -->
     <header>
         <div class="container header-inner">
             <div class="logo">
                 ⚡ <span>CS 1.6</span>
                 <small>ЛЕГЕНДЫ СЕРВЕРА</small>
             </div>
-            <div class="subtitle">
-                <i>🔥</i> 7 игроков · 0 скилла · 100% кринжа <i>🔥</i>
-            </div>
+            <nav id="mainNav">
+                <a class="active" data-page="players">👥 Игроки</a>
+                <a data-page="servers">🎮 Сервера</a>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="stats">
-            <div class="item">
-                <span class="num">7</span>
-                <span class="label">Игроков</span>
-            </div>
-            <div class="item">
-                <span class="num">0</span>
-                <span class="label">Побед</span>
-            </div>
-            <div class="item">
-                <span class="num">-12</span>
-                <span class="label">Убийств</span>
-            </div>
-            <div class="item">
-                <span class="num">∞</span>
-                <span class="label">Кринжа</span>
-            </div>
+    <!-- ============================
+    СТРАНИЦА: ИГРОКИ
+    ============================ -->
+    <div id="page-players" class="page active">
+        <div class="container">
+            <div class="page-title">👥 <span>Игроки</span> сервера</div>
+            <div class="page-sub">// кликни на карточку, чтобы увидеть моменты</div>
+            <div class="grid" id="playerGrid"></div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="grid" id="playerGrid"></div>
+    <!-- ============================
+    СТРАНИЦА: СЕРВЕРА
+    ============================ -->
+    <div id="page-servers" class="page">
+        <div class="container">
+            <div class="page-title">🎮 <span>Сервера</span> CS 1.6</div>
+            <div class="page-sub">// кликни на сервер, чтобы увидеть информацию</div>
+            <div class="servers-grid" id="serversGrid"></div>
+        </div>
     </div>
 
-    <div class="modal-overlay" id="modal">
+    <!-- ============================
+    МОДАЛКА (ИГРОК)
+    ============================ -->
+    <div class="modal-overlay" id="playerModal">
         <div class="modal">
-            <button class="close" id="modalClose">✕</button>
-            <div class="m-avatar" id="mAvatar">🧠</div>
-            <div class="m-nick" id="mNick">PaPaY</div>
-            <div class="m-role" id="mRole">Главный бот</div>
-            <div class="m-badge" id="mBadge">🏆 MVP кринжа</div>
+            <button class="close" id="playerModalClose">✕</button>
+            <div class="m-avatar" id="pmAvatar">🧠</div>
+            <div class="m-nick" id="pmNick">PaPaY</div>
+            <div class="m-role" id="pmRole">Главный бот</div>
+            <div class="m-badge" id="pmBadge">🏆 MVP кринжа</div>
             <div class="m-title">🔥 Прикольные моменты</div>
-            <div class="moments" id="mMoments"></div>
-            <div class="quote" id="mQuote">
+            <div class="moments" id="pmMoments"></div>
+            <div class="quote" id="pmQuote">
                 "Я купил AWP, а денег нет."
                 <span class="author">— PaPaY</span>
             </div>
         </div>
     </div>
 
+    <!-- ============================
+    МОДАЛКА (СЕРВЕР)
+    ============================ -->
+    <div class="modal-overlay server-modal" id="serverModal">
+        <div class="modal">
+            <button class="close" id="serverModalClose">✕</button>
+            <div class="server-info">
+                <div style="font-size:16px; color:#5a6a7a;">Сервер</div>
+                <div style="font-size:32px; font-weight:700; color:#ffcc00;" id="smNum">#1</div>
+                <div class="big-ip" id="smIp">83.69.139.164:27014</div>
+                <div style="font-size:13px; color:#5a6a7a; margin-bottom:4px;">Карты:</div>
+                <div class="server-maps" id="smMaps">
+                    <span>de_dust2</span>
+                    <span>de_inferno</span>
+                    <span>de_nuke</span>
+                </div>
+                <button class="copy-btn" id="smCopyBtn">📋 Копировать IP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================
+    ФУТЕР
+    ============================ -->
     <footer>
         <div class="container">
             <p>⚡ CS 1.6 &bull; 2026 &bull; <a href="#">Присоединиться к кринжу</a></p>
@@ -426,27 +640,67 @@
     </footer>
 
     <script>
+        // ============================
+        // МАТРИЦА
+        // ============================
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}:<>?';
+        const columns = Math.floor(canvas.width / 14);
+        const drops = [];
+        for (let i = 0; i < columns; i++) drops[i] = Math.floor(Math.random() * -100);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 14, 23, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.font = '12px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const char = chars[Math.floor(Math.random() * chars.length)];
+                const x = i * 14;
+                const y = drops[i] * 14;
+                const brightness = 80 + Math.random() * 120;
+                ctx.fillStyle = `rgb(0, ${brightness}, ${brightness / 2})`;
+                ctx.fillText(char, x, y);
+                if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 40);
+
+        // ============================
+        // ДАННЫЕ ИГРОКОВ
+        // ============================
         const players = [{
             id: 'papay',
             avatar: '👑',
             nick: 'PaPaY',
-            role: '👑 Самый сильный игрок мира',
-            badge: '🏆 MVP мира',
+            role: '👑 Самый Сильный игрок мира',
+            badge: '🏆 MVP Мира',
             moments: [
-                { img: 'papay_1.jpg', desc: 'умничка' },
-                { img: 'papay_2.jpg', desc: 'Aylanamiza)' },
-                { emoji: '💸', desc: 'Денги не проблема' },
+                { img: 'papay_1.jpg', desc: 'Умничка' },
+                { img: 'papay_2.jpg', desc: 'Aylanamiza))' },
+                { emoji: '💸', desc: 'Деньги не проблема },
                 { emoji: '🔪', desc: 'убью' },
-                { emoji: '🔄', desc: 'Может разнести любого' },
-                { emoji: '😭', desc: 'когда он умирает в катке .Все плачут' },
+                { emoji: '🔄', desc: 'проблема?' },
+                { emoji: '😭', desc: 'когда он умирал.Вся команда плакала' },
             ],
-            quote: '"Мой Братик❤️ ."',
+            quote: '"Мой братик❤️"',
             author: 'Karina'
         }, {
             id: 'drweb',
             avatar: '💊',
             nick: 'Dr.Web',
-            role: '🛡️ Антивирус, который не помогает',
+            role: '🛡️ Ishlamaydigan Antivirus',
             badge: '💀 Лечил врагов',
             moments: [
                 { emoji: '💉', desc: 'Кинул дым вместо лечебной гранаты' },
@@ -476,7 +730,7 @@
             id: 'karina',
             avatar: '💥',
             nick: 'Karina',
-            role: '💣 Женщина-катастроф',
+            role: '💣 Женщина-катастрофа',
             badge: '☢️ Подорвала всех',
             moments: [
                 { img: 'karina_1.jpg', desc: 'Подорвала себя' },
@@ -500,7 +754,7 @@
                 { emoji: '😤', desc: 'Обвинил всех в том, что они нуб' },
                 { emoji: '🎯', desc: 'Попал в тиммейта и сказал "ты сам виноват"' },
             ],
-            quote: '"Самый тупой игрок на Ihost"',
+            quote: '"ДА ВЫ ЧТО, БЛЯТЬ?! С КАКОГО ХРЕНА?!"',
             author: 'ZLOY'
         }, {
             id: 'azbe',
@@ -509,12 +763,12 @@
             role: '😍 Uzi Uchun Krassavchik',
             badge: '🎙️ Sekinrooooo',
             moments: [
-                { img: 'azbe_1.jpg', desc: 'Men Uchaman' },
-                { img: 'azbe_2.jpg', desc: 'Voy boshim' },
-                { img: 'azbe_3.jpg', desc: 'Buyoqqa kel))' },
+                { img: 'aZbe_1.jpg', desc: 'Men Uchaman' },
+                { img: 'aZbe_2.jpg', desc: 'Voy boshim' },
+                { img: 'aZbe_3.jpg', desc: 'Buyoqqa kel))' },
                 { emoji: '💥', desc: 'Flew otib ukib qoldi' },
-                { emoji: '😤', desc: 'Hammang cheater deb baqirdi lekin Uzi nubb' },
-                { emoji: '🎯', desc: 'Xammani flewlab quydi "lekin men aybdor emasman deb turib oldi"' },
+                { emoji: '😤', desc: 'Hammang cheater deb baqirdi' },
+                { emoji: '🎯', desc: 'Xammani flewlab quydi' },
             ],
             quote: '"Да вы что, блять?! С какого хрена?!"',
             author: 'aZbe'
@@ -535,7 +789,10 @@
             author: 'SIT'
         }];
 
-        const grid = document.getElementById('playerGrid');
+        // ============================
+        // ОТРИСОВКА ИГРОКОВ
+        // ============================
+        const playerGrid = document.getElementById('playerGrid');
 
         players.forEach(p => {
             const card = document.createElement('div');
@@ -546,24 +803,27 @@
                         <div class="role">${p.role}</div>
                         <div class="badge">${p.badge}</div>
                     `;
-            card.addEventListener('click', () => openModal(p.id));
-            grid.appendChild(card);
+            card.addEventListener('click', () => openPlayerModal(p.id));
+            playerGrid.appendChild(card);
         });
 
-        const modal = document.getElementById('modal');
-        const modalClose = document.getElementById('modalClose');
+        // ============================
+        // МОДАЛКА ИГРОКА
+        // ============================
+        const playerModal = document.getElementById('playerModal');
+        const playerModalClose = document.getElementById('playerModalClose');
 
-        function openModal(id) {
+        function openPlayerModal(id) {
             const p = players.find(x => x.id === id);
             if (!p) return;
 
-            document.getElementById('mAvatar').textContent = p.avatar;
-            document.getElementById('mNick').textContent = p.nick;
-            document.getElementById('mRole').textContent = p.role;
-            document.getElementById('mBadge').textContent = p.badge;
+            document.getElementById('pmAvatar').textContent = p.avatar;
+            document.getElementById('pmNick').textContent = p.nick;
+            document.getElementById('pmRole').textContent = p.role;
+            document.getElementById('pmBadge').textContent = p.badge;
 
-            const momentsContainer = document.getElementById('mMoments');
-            momentsContainer.innerHTML = '';
+            const container = document.getElementById('pmMoments');
+            container.innerHTML = '';
             p.moments.forEach(m => {
                 const div = document.createElement('div');
                 div.className = 'moment';
@@ -578,20 +838,126 @@
                                 <span class="desc">${m.desc}</span>
                             `;
                 }
-                momentsContainer.appendChild(div);
+                container.appendChild(div);
             });
 
-            document.getElementById('mQuote').innerHTML = `
+            document.getElementById('pmQuote').innerHTML = `
                         "${p.quote}"
                         <span class="author">— ${p.author}</span>
                     `;
 
-            modal.classList.add('open');
+            playerModal.classList.add('open');
         }
 
-        modalClose.addEventListener('click', () => modal.classList.remove('open'));
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('open');
+        playerModalClose.addEventListener('click', () => playerModal.classList.remove('open'));
+        playerModal.addEventListener('click', (e) => {
+            if (e.target === playerModal) playerModal.classList.remove('open');
+        });
+
+        // ============================
+        // ДАННЫЕ СЕРВЕРОВ
+        // ============================
+        const servers = [{
+            id: 1,
+            ip: '83.69.139.164:27014',
+            maps: ['de_dust2', 'de_inferno', 'de_nuke']
+        }, {
+            id: 2,
+            ip: '83.69.139.164:27015',
+            maps: ['de_aztec', 'de_dust', 'de_cbble']
+        }, {
+            id: 3,
+            ip: '83.69.139.164:27016',
+            maps: ['de_train', 'de_mirage', 'de_tuscan']
+        }, {
+            id: 4,
+            ip: '83.69.139.164:27020',
+            maps: ['cs_office', 'cs_italy', 'cs_militia']
+        }, {
+            id: 5,
+            ip: '83.69.139.164:27018',
+            maps: ['de_vertigo', 'de_prodigy', 'de_chateau']
+        }, {
+            id: 6,
+            ip: '83.69.139.164:27022',
+            maps: ['de_piranesi', 'de_cpl_mill', 'de_cpl_strike']
+        }];
+
+        // ============================
+        // ОТРИСОВКА СЕРВЕРОВ
+        // ============================
+        const serversGrid = document.getElementById('serversGrid');
+
+        servers.forEach(s => {
+            const card = document.createElement('div');
+            card.className = 'server-card';
+            card.innerHTML = `
+                        <div class="num">#${s.id}</div>
+                        <div class="ip">${s.ip}</div>
+                        <div class="status">
+                            <span class="dot"></span> онлайн
+                        </div>
+                    `;
+            card.addEventListener('click', () => openServerModal(s.id));
+            serversGrid.appendChild(card);
+        });
+
+        // ============================
+        // МОДАЛКА СЕРВЕРА
+        // ============================
+        const serverModal = document.getElementById('serverModal');
+        const serverModalClose = document.getElementById('serverModalClose');
+
+        function openServerModal(id) {
+            const s = servers.find(x => x.id === id);
+            if (!s) return;
+
+            document.getElementById('smNum').textContent = `#${s.id}`;
+            document.getElementById('smIp').textContent = s.ip;
+
+            const mapsContainer = document.getElementById('smMaps');
+            mapsContainer.innerHTML = '';
+            s.maps.forEach(map => {
+                const span = document.createElement('span');
+                span.textContent = map;
+                mapsContainer.appendChild(span);
+            });
+
+            const copyBtn = document.getElementById('smCopyBtn');
+            copyBtn.textContent = '📋 Копировать IP';
+            copyBtn.className = 'copy-btn';
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(s.ip).then(() => {
+                    copyBtn.textContent = '✅ Скопировано!';
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.textContent = '📋 Копировать IP';
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            };
+
+            serverModal.classList.add('open');
+        }
+
+        serverModalClose.addEventListener('click', () => serverModal.classList.remove('open'));
+        serverModal.addEventListener('click', (e) => {
+            if (e.target === serverModal) serverModal.classList.remove('open');
+        });
+
+        // ============================
+        // НАВИГАЦИЯ
+        // ============================
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.dataset.page;
+                document.querySelectorAll('#mainNav a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                const target = document.getElementById(`page-${pageId}`);
+                if (target) target.classList.add('active');
+            });
         });
     </script>
 
