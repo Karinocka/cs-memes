@@ -623,175 +623,175 @@
         setInterval(drawMatrix, 40);
 
         // ============================
-        // ИГРОКИ
+        // ИГРОКИ (ИСПРАВЛЕНО)
         // ============================
-       const players = [{
-    id: 'papay',
-    avatar: '👑',
-    nick: 'PaPaY',
-    role: '👑 Dunyoning Eng kuchli uyinchisi',
-    badge: '🏆 MVP',
-    moments: [
-        { img: 'papay_1.jpg', desc: 'Умничка' },
-        { img: 'papay_2.jpg', desc: 'Aylanamiza)' },
-        { emoji: '💸', desc: 'Pul prablema emas' },
-        { emoji: '🔪', desc: 'Uldiraman' },
-        { emoji: '🔄', desc: 'Ciqila' },
-        { emoji: '😭', desc: 'Когда он умерал во время катки.все плакали' },
-    ],
-    quote: '"Uzimmi akajonim❤️."',
-    author: 'karina'
-}, {
-    id: 'drweb',
-    avatar: '💊',
-    nick: 'Dr.Web',
-    role: '🛡️ Ishlameydigan antivirus',
-    badge: '💀 Лечил врагов',
-    moments: [
-        { img: 'drweb_1.jpg', desc: 'Ushladimmi)))' },
-        { img: 'drweb_2.jpg', desc: 'Hammela Tshlanila' },
-        { img: 'drweb_3.jpg', desc: 'Nima kere???' },
-        { img: 'drweb_4.jpg', desc: 'Uq qolmadi.Prablema emas' },
-        { img: 'drweb_5.jpg', desc: 'Jangaaa' },
-    ],
-    quote: '"Hammaga ban."',
-    author: 'Dr.Web'
-}, {
-    id: 'alishka',
-    avatar: '🎯',
-    nick: 'Alishka',
-    role: '🎯 HAQIQIY SNAYPER',
-    badge: '😎 10 промахов за раун',
-    moments: [
-        { img: 'alishka_1.jpg', desc: 'Topdimku sani)' },
-        { img: 'alishka_2.jpg', desc: 'mazza' },
-        { img: 'alishka_3.jpg', desc: 'ASSALOM' },
-        { img: 'alishka_4.jpg', desc: 'Qatga shoshasan utiruvr' },
-        { img: 'alishka_5.jpg', desc: 'MEOW' },
-    ],
-    quote: '"San kim/U kim/Bu kim/Man kim."',
-    author: 'Alishka'
-}, {
-    id: 'karina',
-    avatar: '💥',
-    nick: 'Karina',
-    role: '💣 Женщина-катастрофа',
-    badge: '☢️ Подорвала всех',
-    moments: [
-        { img: 'karina_1.jpg', desc: 'Ban time)' },
-        { img: 'karina_2.jpg', desc: 'MUT TIME)))' },
-        { img: 'karina_3.jpg', desc: 'eeeeee' },
-        { img: 'karina_4.jpg', desc: 'Я красивая?' },
-        { img: 'karina_5.jpg', desc: '^__^' },
-    ],
-    quote: '"/anew куплю за 2 очки 200% HE ."',
-    author: 'Karina'
-}, {
-    id: 'zloy',
-    avatar: '😡',
-    nick: 'ZLOY',
-    role: '😡 Токсичный нуб',
-    badge: '🎙️ Кричал в микрофон',
-    moments: [
-        { img: 'zloy_1.jpg', desc: 'Кричал в микрофон 10 минут' },
-        { img: 'zloy_2.jpg', desc: 'MUSR' },
-        { img: 'zloy_3.jpg', desc: 'BU men)' },
-        { img: 'zloy_4.jpg', desc: 'Bu ham men' },
-        { img: 'zloy_5.jpg', desc: 'Ha mayli Bu ham men' },
-    ],
-    quote: '"ДА ВЫ ЧТО, БЛЯТЬ?! С КАКОГО ХРЕНА?!"',
-    author: 'ZLOY'
-}, {
-    id: 'Raxmatjon',
-    avatar: '😍',
-    nick: 'Raxmatjon',
-    role: '😍 CHIT,
-    badge: '🎙️ Sekinrooooo',
-    moments: [
-        { img: 'raxmatjon_1.jpg', desc: 'CHITIM YUQKUU' },
-        { img: 'raxmatjon_2.jpg', desc: 'MANA HAYOT' },
-        { img: 'raxmatjon_3.jpg', desc: 'OKA CHITMAS))' },
-        { img: 'raxmatjon_4.jpg', desc: 'aniqmi)' },
-        { img: 'raxmatjon_5.jpg', desc: 'Guzallar guzali' },
-    ],
-    quote: '"ULAY AGAR CHITSIZ UYNIMAN"',
-    author: 'Raxmatjon'
-}, {
-    id: 'sit',
-    avatar: '🪑',
-    nick: 'SIT',
-    role: '🪑 Сидит и ничего не делает',
-    badge: '🧘 Мастер бездействия',
-    moments: [
-        { img: 'sit_1.jpg', desc: 'Сидел весь раунд в углу' },
-        { img: 'sit_2.jpg', desc: 'Joyimizda qotamiz' },
-        { img: 'sit_3.jpg', desc: 'Oka chitersizku tan oling' },
-        { img: 'sit_4.jpg', desc: 'GO 1x1' },
-        { img: 'sit_5.jpg', desc: 'Qalesan' },
-    ],
-    quote: '"... (JIMTUR BLE)"',
-    author: 'SIT'
-}, {
-    id: 'uzfrozen',
-    avatar: '❄️',
-    nick: '[UZ] F r o z e n',
-    role: '👑 Создатель серверов',
-    badge: '❄️ Ледяной босс',
-    moments: [
-        { img: 'uzfrozen_1.jpg', desc: 'Создал сервер, а сам забыл пароль от админки' },
-        { img: 'uzfrozen_2.jpg', desc: 'Забанил себя за читы' },
-        { img: 'uzfrozen_3.jpg', desc: 'Кикнул админа и сказал "ой, это я"' },
-        { img: 'uzfrozen_4.jpg', desc: 'Сделал /slap всем, включая себя' },
-        { img: 'uzfrozen_5.jpg', desc: 'Выключил сервер, потому что проиграл 0:10' },
-    ],
-    quote: '"Сервер создал, а играть не умею."',
-    author: '[UZ] F r o z e n'
-}, {
-    id: 'asadbek',
-    avatar: '🤡',
-    nick: 'ASADBEK_PRIVET',
-    role: '👑 ПИДОФАЙЛ',
-    badge: '🎭 МЕМНЫЙ БОСС',
-    moments: [
-        { img: 'asadbek_1.jpg', desc: 'Зашёл в админку и забанил себя' },
-        { img: 'asadbek_2.jpg', desc: 'Купил AWP, а денег нет' },
-        { img: 'asadbek_3.jpg', desc: 'Сказал "я лучший" и умер от ножа' },
-        { img: 'asadbek_4.jpg', desc: 'Кинул дым в себя и ослеп' },
-        { img: 'asadbek_5.jpg', desc: 'Сделал 0 фрагов за игру' },
-    ],
-    quote: '"Я не нуб, это у вас пидоры."',
-    author: 'ASADBEK_PRIVET'
-}, {
-    id: 'pro',
-    avatar: '🎬',
-    nick: '[pro]',
-    role: '🎬 EDITOR OF REALITY',
-    badge: '✂️ CUTS EVERYTHING',
-    moments: [
-        { img: 'pro_1.jpg', desc: 'Edited his own KD ratio to 100/0' },
-        { img: 'pro_2.jpg', desc: 'Cut the enemy team from the game' },
-        { img: 'pro_3.jpg', desc: 'Added himself to the Hall of Fame' },
-        { img: 'pro_4.jpg', desc: 'Deleted a map because he lost' },
-        { img: 'pro_5.jpg', desc: 'Put a copyright on his own death' },
-    ],
-    quote: '"If I die, it\'s a bug. If you die, it\'s a feature."',
-    author: '[pro]'
-}, {
-    id: 'nba',
-    avatar: '🏀',
-    nick: 'NBA',
-    role: '🏀 TOP 1 AFK KILLER',
-    badge: '💀 AFK uldiriw mazzadee',
-    moments: [
-        { img: 'nba_1.jpg', desc: 'Tayorgarli' },
-        { img: 'nba_2.jpg', desc: 'ONLY AFK' },
-        { img: 'nba_3.jpg', desc: 'SALOM' },
-        { img: 'nba_4.jpg', desc: 'E oka afk emasmidiz?' },
-        { img: 'nba_5.jpg', desc: 'cs 1.6 zuy' },
-    ],
-    quote: '"AFK KURSAM FLESHga aylanaman))))."',
-    author: 'NBA'
-}];
+        const players = [{
+            id: 'papay',
+            avatar: '👑',
+            nick: 'PaPaY',
+            role: '👑 Dunyoning Eng kuchli uyinchisi',
+            badge: '🏆 MVP',
+            moments: [
+                { img: 'papay_1.jpg', desc: 'Умничка' },
+                { img: 'papay_2.jpg', desc: 'Aylanamiza)' },
+                { emoji: '💸', desc: 'Pul prablema emas' },
+                { emoji: '🔪', desc: 'Uldiraman' },
+                { emoji: '🔄', desc: 'Ciqila' },
+                { emoji: '😭', desc: 'Когда он умерал во время катки.все плакали' },
+            ],
+            quote: '"Uzimmi akajonim❤️."',
+            author: 'karina'
+        }, {
+            id: 'drweb',
+            avatar: '💊',
+            nick: 'Dr.Web',
+            role: '🛡️ Ishlameydigan antivirus',
+            badge: '💀 Лечил врагов',
+            moments: [
+                { img: 'drweb_1.jpg', desc: 'Ushladimmi)))' },
+                { img: 'drweb_2.jpg', desc: 'Hammela Tshlanila' },
+                { img: 'drweb_3.jpg', desc: 'Nima kere???' },
+                { img: 'drweb_4.jpg', desc: 'Uq qolmadi.Prablema emas' },
+                { img: 'drweb_5.jpg', desc: 'Jangaaa' },
+            ],
+            quote: '"Hammaga ban."',
+            author: 'Dr.Web'
+        }, {
+            id: 'alishka',
+            avatar: '🎯',
+            nick: 'Alishka',
+            role: '🎯 HAQIQIY SNAYPER',
+            badge: '😎 10 промахов за раун',
+            moments: [
+                { img: 'alishka_1.jpg', desc: 'Topdimku sani)' },
+                { img: 'alishka_2.jpg', desc: 'mazza' },
+                { img: 'alishka_3.jpg', desc: 'ASSALOM' },
+                { img: 'alishka_4.jpg', desc: 'Qatga shoshasan utiruvr' },
+                { img: 'alishka_5.jpg', desc: 'MEOW' },
+            ],
+            quote: '"San kim/U kim/Bu kim/Man kim."',
+            author: 'Alishka'
+        }, {
+            id: 'karina',
+            avatar: '💥',
+            nick: 'Karina',
+            role: '💣 Женщина-катастрофа',
+            badge: '☢️ Подорвала всех',
+            moments: [
+                { img: 'karina_1.jpg', desc: 'Ban time)' },
+                { img: 'karina_2.jpg', desc: 'MUT TIME)))' },
+                { img: 'karina_3.jpg', desc: 'eeeeee' },
+                { img: 'karina_4.jpg', desc: 'Я красивая?' },
+                { img: 'karina_5.jpg', desc: '^__^' },
+            ],
+            quote: '"/anew куплю за 2 очки 200% HE ."',
+            author: 'Karina'
+        }, {
+            id: 'zloy',
+            avatar: '😡',
+            nick: 'ZLOY',
+            role: '😡 Токсичный нуб',
+            badge: '🎙️ Кричал в микрофон',
+            moments: [
+                { img: 'zloy_1.jpg', desc: 'Кричал в микрофон 10 минут' },
+                { img: 'zloy_2.jpg', desc: 'MUSR' },
+                { img: 'zloy_3.jpg', desc: 'BU men)' },
+                { img: 'zloy_4.jpg', desc: 'Bu ham men' },
+                { img: 'zloy_5.jpg', desc: 'Ha mayli Bu ham men' },
+            ],
+            quote: '"ДА ВЫ ЧТО, БЛЯТЬ?! С КАКОГО ХРЕНА?!"',
+            author: 'ZLOY'
+        }, {
+            id: 'Raxmatjon',
+            avatar: '😍',
+            nick: 'Raxmatjon',
+            role: '😍 CHIT',
+            badge: '🎙️ Sekinrooooo',
+            moments: [
+                { img: 'raxmatjon_1.jpg', desc: 'CHITIM YUQKUU' },
+                { img: 'raxmatjon_2.jpg', desc: 'MANA HAYOT' },
+                { img: 'raxmatjon_3.jpg', desc: 'OKA CHITMAS))' },
+                { img: 'raxmatjon_4.jpg', desc: 'aniqmi)' },
+                { img: 'raxmatjon_5.jpg', desc: 'Guzallar guzali' },
+            ],
+            quote: '"ULAY AGAR CHITSIZ UYNIMAN"',
+            author: 'Raxmatjon'
+        }, {
+            id: 'sit',
+            avatar: '🪑',
+            nick: 'SIT',
+            role: '🪑 Сидит и ничего не делает',
+            badge: '🧘 Мастер бездействия',
+            moments: [
+                { img: 'sit_1.jpg', desc: 'Сидел весь раунд в углу' },
+                { img: 'sit_2.jpg', desc: 'Joyimizda qotamiz' },
+                { img: 'sit_3.jpg', desc: 'Oka chitersizku tan oling' },
+                { img: 'sit_4.jpg', desc: 'GO 1x1' },
+                { img: 'sit_5.jpg', desc: 'Qalesan' },
+            ],
+            quote: '"... (JIMTUR BLE)"',
+            author: 'SIT'
+        }, {
+            id: 'uzfrozen',
+            avatar: '❄️',
+            nick: '[UZ] F r o z e n',
+            role: '👑 Создатель серверов',
+            badge: '❄️ Ледяной босс',
+            moments: [
+                { img: 'uzfrozen_1.jpg', desc: 'Создал сервер, а сам забыл пароль от админки' },
+                { img: 'uzfrozen_2.jpg', desc: 'Забанил себя за читы' },
+                { img: 'uzfrozen_3.jpg', desc: 'Кикнул админа и сказал "ой, это я"' },
+                { img: 'uzfrozen_4.jpg', desc: 'Сделал /slap всем, включая себя' },
+                { img: 'uzfrozen_5.jpg', desc: 'Выключил сервер, потому что проиграл 0:10' },
+            ],
+            quote: '"Сервер создал, а играть не умею."',
+            author: '[UZ] F r o z e n'
+        }, {
+            id: 'asadbek',
+            avatar: '🤡',
+            nick: 'ASADBEK_PRIVET',
+            role: '👑 ПИДОФАЙЛ',
+            badge: '🎭 МЕМНЫЙ БОСС',
+            moments: [
+                { img: 'asadbek_1.jpg', desc: 'Зашёл в админку и забанил себя' },
+                { img: 'asadbek_2.jpg', desc: 'Купил AWP, а денег нет' },
+                { img: 'asadbek_3.jpg', desc: 'Сказал "я лучший" и умер от ножа' },
+                { img: 'asadbek_4.jpg', desc: 'Кинул дым в себя и ослеп' },
+                { img: 'asadbek_5.jpg', desc: 'Сделал 0 фрагов за игру' },
+            ],
+            quote: '"Я не нуб, это у вас пидоры."',
+            author: 'ASADBEK_PRIVET'
+        }, {
+            id: 'pro',
+            avatar: '🎬',
+            nick: '[pro]',
+            role: '🎬 EDITOR OF REALITY',
+            badge: '✂️ CUTS EVERYTHING',
+            moments: [
+                { img: 'pro_1.jpg', desc: 'Edited his own KD ratio to 100/0' },
+                { img: 'pro_2.jpg', desc: 'Cut the enemy team from the game' },
+                { img: 'pro_3.jpg', desc: 'Added himself to the Hall of Fame' },
+                { img: 'pro_4.jpg', desc: 'Deleted a map because he lost' },
+                { img: 'pro_5.jpg', desc: 'Put a copyright on his own death' },
+            ],
+            quote: '"If I die, it\'s a bug. If you die, it\'s a feature."',
+            author: '[pro]'
+        }, {
+            id: 'nba',
+            avatar: '🏀',
+            nick: 'NBA',
+            role: '🏀 TOP 1 AFK KILLER',
+            badge: '💀 AFK uldiriw mazzadee',
+            moments: [
+                { img: 'nba_1.jpg', desc: 'Tayorgarli' },
+                { img: 'nba_2.jpg', desc: 'ONLY AFK' },
+                { img: 'nba_3.jpg', desc: 'SALOM' },
+                { img: 'nba_4.jpg', desc: 'E oka afk emasmidiz?' },
+                { img: 'nba_5.jpg', desc: 'cs 1.6 zuy' },
+            ],
+            quote: '"AFK KURSAM FLESHga aylanaman))))."',
+            author: 'NBA'
+        }];
 
         const playerGrid = document.getElementById('playerGrid');
 
